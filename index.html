@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galaxy Cat Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="space-backdrop" aria-hidden="true">
+      <div class="starfield"></div>
+      <div class="nebula nebula-left"></div>
+      <div class="nebula nebula-right"></div>
+    </div>
+
+    <section id="startScreen" class="start-screen">
+      <p class="kicker">Interactive Space Adventure</p>
+      <h1>Galaxy Cat Academy</h1>
+      <p>
+        Begin in our Solar System, zoom into each world, rotate planets, explore layered facts, and rescue cosmic cats.
+      </p>
+      <button id="startBtn" class="btn btn-primary">Start Mission</button>
+    </section>
+
+    <div id="app" class="app" hidden>
+      <header class="topbar">
+        <div class="title-block">
+          <p class="kicker">Galaxy Cat Academy</p>
+          <h2 id="locationLabel">Solar System Map</h2>
+        </div>
+        <div class="top-actions">
+          <button id="mapBtn" class="btn btn-secondary">Map</button>
+          <button id="catalogBtn" class="btn btn-secondary">Cat Catalog</button>
+        </div>
+      </header>
+
+      <main class="main-layout" aria-live="polite">
+        <section id="mapView" class="view map-view">
+          <p class="view-title">Choose your destination</p>
+          <div id="solarStage" class="solar-stage">
+            <div class="orbit orbit-1"></div>
+            <div class="orbit orbit-2"></div>
+            <div class="orbit orbit-3"></div>
+            <div id="sunPin" class="planet-pin sun" data-index="0" tabindex="0" role="button" aria-label="Visit Sun"></div>
+            <div id="marsPin" class="planet-pin mars" data-index="1" tabindex="0" role="button" aria-label="Visit Mars"></div>
+            <div id="jupiterPin" class="planet-pin jupiter" data-index="2" tabindex="0" role="button" aria-label="Visit Jupiter"></div>
+          </div>
+          <p id="mapHint" class="map-hint">Selected: Sun</p>
+          <button id="visitBtn" class="btn btn-primary">Zoom To Destination</button>
+        </section>
+
+        <section id="planetView" class="view planet-view" hidden>
+          <div class="planet-stage-wrap">
+            <div class="planet-stage">
+              <div id="planetObject" class="planet-object">
+                <div class="planet-shine"></div>
+              </div>
+            </div>
+            <p class="drag-tip">Drag to rotate</p>
+          </div>
+
+          <aside class="planet-panel">
+            <h3 id="planetTitle">The Sun</h3>
+            <p id="planetIntro">Explore a part to reveal facts.</p>
+            <div id="partButtons" class="part-buttons"></div>
+            <div class="panel-actions">
+              <button id="factBtn" class="btn btn-secondary">Reveal Fact</button>
+              <button id="catBtn" class="btn btn-primary">Discover Cat</button>
+              <button id="nextBtn" class="btn btn-secondary">Next Destination</button>
+            </div>
+            <p id="factText" class="fact-text">Select a part first.</p>
+            <p id="discoverStatus" class="discover-status"></p>
+          </aside>
+        </section>
+      </main>
+
+      <button id="prevArrow" class="side-arrow left" aria-label="Previous destination">◀</button>
+      <button id="nextArrow" class="side-arrow right" aria-label="Next destination">▶</button>
+
+      <section id="catalogPanel" class="catalog-panel" hidden>
+        <div class="catalog-head">
+          <h3>Cat Catalog</h3>
+          <button id="closeCatalogBtn" class="btn btn-secondary">Close</button>
+        </div>
+        <p id="catalogCount">0 cats collected</p>
+        <div id="catalogGrid" class="catalog-grid"></div>
+      </section>
+    </div>
+
+    <template id="catalogCardTemplate">
+      <article class="catalog-card" data-locked="true">
+        <h4 class="cat-name">Unknown Cat</h4>
+        <p class="cat-origin">Unknown Origin</p>
+        <p class="cat-description">Discover more planets to unlock.</p>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
