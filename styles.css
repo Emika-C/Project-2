@@ -24,6 +24,8 @@
   --px-edge: #9bc3ff;
   --px-shadow: rgba(5, 8, 26, 0.78);
   --px-panel: linear-gradient(180deg, rgba(15, 28, 71, 0.94), rgba(8, 17, 46, 0.96));
+  --celestial-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.34), 4px 4px 0 rgba(6, 9, 26, 0.78);
+  --celestial-glow: 0 0 0 2px rgba(170, 214, 255, 0.82), 0 0 16px rgba(109, 187, 255, 0.62);
 }
 
 * {
@@ -37,11 +39,11 @@ body {
   font-weight: 700;
   color: var(--ink);
   background:
-    radial-gradient(circle at 16% 24%, rgba(110, 162, 255, 0.26), transparent 46%),
-    radial-gradient(circle at 82% 70%, rgba(255, 126, 184, 0.25), transparent 44%),
-    linear-gradient(112deg, #273f98 0%, #2f3a88 36%, #3a336f 60%, #64335f 82%, #874a73 100%),
+    radial-gradient(circle at 16% 24%, rgba(110, 162, 255, 0.15), transparent 46%),
+    radial-gradient(circle at 82% 70%, rgba(255, 126, 184, 0.15), transparent 44%),
+    linear-gradient(112deg, rgba(39, 63, 152, 0.44) 0%, rgba(47, 58, 136, 0.42) 36%, rgba(58, 51, 111, 0.4) 60%, rgba(100, 51, 95, 0.4) 82%, rgba(135, 74, 115, 0.4) 100%),
     url("Assets/solar-system/background.png") center / cover fixed no-repeat;
-  background-blend-mode: screen, screen, normal, soft-light;
+  background-blend-mode: screen, screen, normal, normal;
   overflow-x: hidden;
   image-rendering: pixelated;
 }
@@ -76,7 +78,7 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.14;
+  opacity: 0.08;
   background-image:
     linear-gradient(180deg, rgba(113, 154, 255, 0.62), rgba(255, 117, 179, 0.56));
   background-size: 18px 18px;
@@ -107,7 +109,7 @@ body::after {
     radial-gradient(1.6px 1.6px at 85% 78%, rgba(255, 255, 255, 0.66), transparent),
     radial-gradient(1.2px 1.2px at 94% 24%, rgba(220, 236, 255, 0.6), transparent),
     radial-gradient(1200px 900px at 50% 55%, rgba(7, 20, 41, 0), rgba(2, 3, 13, 0.22));
-  opacity: 0.9;
+  opacity: 0.62;
   animation: starsDrift 20s linear infinite alternate;
   image-rendering: pixelated;
   filter: contrast(1.08) saturate(1.08);
@@ -222,7 +224,7 @@ body::after {
   width: 52vmax;
   height: 52vmax;
   filter: blur(58px);
-  opacity: 0.22;
+  opacity: 0.12;
   z-index: 2;
 }
 
@@ -450,16 +452,21 @@ h1 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.36), 3px 3px 0 rgba(6, 9, 26, 0.75);
+  box-shadow: var(--celestial-shadow);
   transition: transform 160ms ease, box-shadow 160ms ease;
   image-rendering: pixelated;
 }
 
 .planet-pin:hover,
-.planet-pin:focus-visible,
-.planet-pin.selected {
+.planet-pin:focus-visible {
   transform: scale(1.1);
-  box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.36), 4px 4px 0 rgba(6, 9, 26, 0.82);
+  box-shadow: var(--celestial-shadow);
+  outline: none;
+}
+
+.planet-pin.selected {
+  transform: scale(1.12);
+  box-shadow: var(--celestial-shadow), var(--celestial-glow);
   outline: none;
 }
 
@@ -518,7 +525,6 @@ h1 {
   background-color: transparent;
   mix-blend-mode: screen;
   z-index: 2;
-  box-shadow: none;
 }
 
 .uranus {
@@ -584,8 +590,12 @@ h1 {
   background-size: cover;
   cursor: grab;
   transition: transform 260ms ease, box-shadow 260ms ease;
-  box-shadow: inset -16px -12px 0 rgba(0, 0, 0, 0.34), 5px 5px 0 rgba(5, 8, 24, 0.7);
+  box-shadow: var(--celestial-shadow);
   image-rendering: pixelated;
+}
+
+.planet-object.selected {
+  box-shadow: var(--celestial-shadow), var(--celestial-glow);
 }
 
 .planet-object:active {
@@ -703,6 +713,36 @@ h1 {
   background: var(--px-panel);
   padding: 1rem;
   box-shadow: 10px 10px 0 rgba(8, 12, 34, 0.76);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  background: rgba(5, 8, 26, 0.55);
+}
+
+.quit-modal {
+  width: min(460px, 92%);
+  border: 2px solid var(--px-edge);
+  border-radius: 0;
+  background: var(--px-panel);
+  padding: 1rem;
+  box-shadow: 8px 8px 0 rgba(8, 12, 34, 0.76);
+}
+
+.quit-modal p {
+  margin: 0.7rem 0 0;
+  color: var(--ink-soft);
+}
+
+.quit-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1rem;
 }
 
 .catalog-head {

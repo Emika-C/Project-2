@@ -547,7 +547,10 @@ const el = {
   catalogPanel: document.getElementById("catalogPanel"),
   catalogCount: document.getElementById("catalogCount"),
   catalogGrid: document.getElementById("catalogGrid"),
-  cardTemplate: document.getElementById("catalogCardTemplate")
+  cardTemplate: document.getElementById("catalogCardTemplate"),
+  quitModal: document.getElementById("quitModal"),
+  cancelQuitBtn: document.getElementById("cancelQuitBtn"),
+  confirmQuitBtn: document.getElementById("confirmQuitBtn")
 };
 
 let viewMode = "map";
@@ -566,6 +569,13 @@ function wireEvents() {
   el.catalogBtn.addEventListener("click", openCatalog);
   el.quitBtn.addEventListener("click", quitMission);
   el.closeCatalogBtn.addEventListener("click", closeCatalog);
+  el.cancelQuitBtn.addEventListener("click", closeQuitModal);
+  el.confirmQuitBtn.addEventListener("click", confirmQuitMission);
+  el.quitModal.addEventListener("click", (event) => {
+    if (event.target === el.quitModal) {
+      closeQuitModal();
+    }
+  });
   el.visitBtn.addEventListener("click", zoomToCurrentPlanet);
   el.prevArrow.addEventListener("click", () => stepPlanet(-1));
   el.nextArrow.addEventListener("click", () => stepPlanet(1));
@@ -590,6 +600,12 @@ function wireEvents() {
   window.addEventListener("resize", () => {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(populateEmojiStars, 150);
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !el.quitModal.hidden) {
+      closeQuitModal();
+    }
   });
 }
 
@@ -706,9 +722,16 @@ function startMission() {
 }
 
 function quitMission() {
-  if (!confirm("Are you sure you want to return to the title screen? Your progress will be saved.")) {
-    return;
-  }
+  el.quitModal.hidden = false;
+  el.confirmQuitBtn.focus();
+}
+
+function closeQuitModal() {
+  el.quitModal.hidden = true;
+}
+
+function confirmQuitMission() {
+  closeQuitModal();
   closeCatalog();
   showMap();
   state.started = false;
@@ -831,6 +854,7 @@ function renderPlanet() {
   } else {
     el.planetObject.style.backgroundImage = system.texture;
   }
+  el.planetObject.classList.add("selected");
   el.factText.textContent = "Select a part first.";
   el.discoverStatus.textContent = "";
   el.discoverStatus.className = "discover-status";
