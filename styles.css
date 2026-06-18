@@ -20,7 +20,9 @@ body {
   min-height: 100vh;
   font-family: "Manrope", sans-serif;
   color: var(--ink);
-  background: linear-gradient(165deg, var(--bg0), var(--bg1));
+  background:
+    linear-gradient(165deg, rgba(2, 3, 13, 0.72), rgba(7, 20, 41, 0.8)),
+    url("Assets/solar-system/background.png") center / cover fixed no-repeat;
   overflow-x: hidden;
 }
 
@@ -228,6 +230,9 @@ h1 {
   position: absolute;
   border-radius: 50%;
   cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   box-shadow: inset -8px -8px 18px rgba(0, 0, 0, 0.3), 0 0 24px rgba(255, 255, 255, 0.14);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
@@ -246,7 +251,7 @@ h1 {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 35% 35%, #fff8bc 0%, #ffb84c 40%, #f86c21 100%);
+  background-image: url("Assets/solar-system/sun.png");
 }
 
 .mars {
@@ -254,7 +259,7 @@ h1 {
   height: 48px;
   left: 74%;
   top: 36%;
-  background: radial-gradient(circle at 30% 30%, #ffbb90, #e15f32 70%, #8f2f1f 100%);
+  background-image: url("Assets/solar-system/mars.png");
 }
 
 .jupiter {
@@ -262,7 +267,7 @@ h1 {
   height: 74px;
   left: 17%;
   top: 74%;
-  background: linear-gradient(180deg, #f2d2a5 0%, #d9a06d 30%, #b57b4f 62%, #f0cf9b 100%);
+  background-image: url("Assets/solar-system/jupiter.png");
 }
 
 .map-hint {
@@ -305,6 +310,9 @@ h1 {
   top: 50%;
   transform: translate(-50%, -50%) rotateY(0deg) scale(var(--planet-zoom, 1));
   border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   cursor: grab;
   transition: transform 260ms ease, box-shadow 260ms ease;
   box-shadow: inset -22px -18px 26px rgba(0, 0, 0, 0.3), 0 0 36px rgba(255, 255, 255, 0.18);

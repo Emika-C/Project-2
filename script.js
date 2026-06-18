@@ -3,6 +3,7 @@ const systems = [
     id: "sun",
     label: "Sun",
     intro: "Our local star is a giant fusion engine with extreme heat and magnetic storms.",
+    image: "Assets/solar-system/sun.png",
     texture: "radial-gradient(circle at 35% 30%, #fffec3 0%, #ffc057 45%, #ef6820 100%)",
     parts: [
       {
@@ -53,6 +54,7 @@ const systems = [
     id: "mars",
     label: "Mars",
     intro: "The red planet has giant volcanoes, deep valleys, and evidence of ancient water.",
+    image: "Assets/solar-system/mars.png",
     texture: "radial-gradient(circle at 32% 28%, #ffc79c 0%, #dd6a3b 48%, #8e3423 100%)",
     parts: [
       {
@@ -103,6 +105,7 @@ const systems = [
     id: "jupiter",
     label: "Jupiter",
     intro: "A gas giant with fierce storms, powerful radiation, and many moons.",
+    image: "Assets/solar-system/jupiter.png",
     texture: "linear-gradient(180deg, #f6debf 0%, #d6ab7f 28%, #be865f 56%, #f2d0a5 100%)",
     parts: [
       {
@@ -148,6 +151,363 @@ const systems = [
         }
       }
     ]
+  },
+  {
+    id: "mercury",
+    label: "Mercury",
+    intro: "The smallest planet and closest to the Sun, with extreme temperature swings.",
+    image: "Assets/solar-system/mercury.png",
+    texture: "radial-gradient(circle at 35% 30%, #c0c0c0 0%, #808080 50%, #404040 100%)",
+    parts: [
+      {
+        name: "Dayside",
+        zoom: 1.18,
+        facts: [
+          "Mercury's day side reaches 430°C, hot enough to melt lead.",
+          "There is virtually no atmosphere to distribute heat."
+        ],
+        cat: {
+          id: "scorch-kitten",
+          name: "Scorch Kitten",
+          origin: "Mercury Dayside",
+          description: "Heat-resistant paws that can walk on molten metal."
+        }
+      },
+      {
+        name: "Nightside",
+        zoom: 1.15,
+        facts: [
+          "Mercury's night side drops to -180°C.",
+          "The temperature difference is the largest in the solar system."
+        ],
+        cat: {
+          id: "frost-whisker",
+          name: "Frost Whisker",
+          origin: "Mercury Nightside",
+          description: "Survives extreme cold by hibernating in impact craters."
+        }
+      },
+      {
+        name: "Surface Craters",
+        zoom: 1.12,
+        facts: [
+          "Mercury is covered in impact craters from ancient asteroids.",
+          "Some craters are over 1,500 km wide."
+        ],
+        cat: {
+          id: "crater-pounce",
+          name: "Crater Pounce",
+          origin: "Mercury Craters",
+          description: "Leaps between crater rims with incredible agility."
+        }
+      }
+    ]
+  },
+  {
+    id: "venus",
+    label: "Venus",
+    intro: "Earth's toxic twin with crushing pressure and sulfuric acid clouds.",
+    image: "Assets/solar-system/venus.png",
+    texture: "radial-gradient(circle at 30% 28%, #ffd89b 0%, #ffb347 50%, #ff8c00 100%)",
+    parts: [
+      {
+        name: "Atmosphere",
+        zoom: 1.2,
+        facts: [
+          "Venus's atmosphere is 90 times denser than Earth's.",
+          "It consists mainly of carbon dioxide with sulfuric acid clouds."
+        ],
+        cat: {
+          id: "cloud-dancer",
+          name: "Cloud Dancer",
+          origin: "Venus Atmosphere",
+          description: "Floats through acid clouds on wind currents."
+        }
+      },
+      {
+        name: "Surface",
+        zoom: 1.16,
+        facts: [
+          "Venus's surface temperature is 465°C, the hottest planet.",
+          "The pressure would crush a submarine."
+        ],
+        cat: {
+          id: "magma-paw",
+          name: "Magma Paw",
+          origin: "Venus Surface",
+          description: "Paddles through molten volcanic plains fearlessly."
+        }
+      },
+      {
+        name: "Retrograde Rotation",
+        zoom: 1.19,
+        facts: [
+          "Venus rotates backwards compared to most planets.",
+          "A day on Venus is longer than its year."
+        ],
+        cat: {
+          id: "backwards-mew",
+          name: "Backwards Mew",
+          origin: "Venus Rotation",
+          description: "Spins in reverse and sees backwards through time."
+        }
+      }
+    ]
+  },
+  {
+    id: "earth",
+    label: "Earth",
+    intro: "Our home planet: the only known world with life.",
+    image: "Assets/solar-system/earth.png",
+    texture: "radial-gradient(circle at 32% 30%, #4a90e2 0%, #2e5c8a 50%, #1a3a52 100%)",
+    parts: [
+      {
+        name: "Atmosphere",
+        zoom: 1.17,
+        facts: [
+          "Earth's atmosphere is made of 78% nitrogen and 21% oxygen.",
+          "The ozone layer protects us from harmful UV radiation."
+        ],
+        cat: {
+          id: "breeze-paw",
+          name: "Breeze Paw",
+          origin: "Earth Atmosphere",
+          description: "Rides jet streams and plays with weather patterns."
+        }
+      },
+      {
+        name: "Oceans",
+        zoom: 1.21,
+        facts: [
+          "Water covers 71% of Earth's surface.",
+          "The deepest ocean trench is nearly 11 km deep."
+        ],
+        cat: {
+          id: "tide-whisker",
+          name: "Tide Whisker",
+          origin: "Earth Oceans",
+          description: "Swims through bioluminescent jellyfish gardens."
+        }
+      },
+      {
+        name: "Continents",
+        zoom: 1.13,
+        facts: [
+          "The continents are slowly drifting across the planet.",
+          "Mountains are still being formed by tectonic plate collisions."
+        ],
+        cat: {
+          id: "explorer-mew",
+          name: "Explorer Mew",
+          origin: "Earth Continents",
+          description: "Maps the world and discovers new habitats daily."
+        }
+      }
+    ]
+  },
+  {
+    id: "saturn",
+    label: "Saturn",
+    intro: "The ringed gas giant with over 80 moons and spectacular ice rings.",
+    image: "Assets/solar-system/saturn.png",
+    texture: "radial-gradient(circle at 32% 28%, #fad5a5 0%, #f4a460 50%, #d2691e 100%)",
+    parts: [
+      {
+        name: "Rings",
+        zoom: 1.24,
+        facts: [
+          "Saturn's rings are made of billions of ice particles.",
+          "They range from fine dust to house-sized boulders."
+        ],
+        cat: {
+          id: "ring-surfer",
+          name: "Ring Surfer",
+          origin: "Saturn Rings",
+          description: "Glides across ice rings on a frictionless sled."
+        }
+      },
+      {
+        name: "Atmosphere",
+        zoom: 1.19,
+        facts: [
+          "Saturn is made mostly of hydrogen and helium.",
+          "Winds can reach 1,800 km/h in the upper atmosphere."
+        ],
+        cat: {
+          id: "wind-pounce",
+          name: "Wind Pounce",
+          origin: "Saturn Atmosphere",
+          description: "Hunts prey in supersonic hurricane zones."
+        }
+      },
+      {
+        name: "Titan Moon",
+        zoom: 1.22,
+        facts: [
+          "Titan is Saturn's largest moon with a thick atmosphere.",
+          "It has liquid methane lakes and may harbor strange life."
+        ],
+        cat: {
+          id: "methane-paw",
+          name: "Methane Paw",
+          origin: "Saturn's Titan",
+          description: "Drinks from methane oceans and breathes alien air."
+        }
+      }
+    ]
+  },
+  {
+    id: "uranus",
+    label: "Uranus",
+    intro: "An icy giant that orbits on its side with 27 known moons.",
+    image: "Assets/solar-system/uranus.png",
+    texture: "radial-gradient(circle at 34% 32%, #4fd0e7 0%, #2e8b9e 50%, #1a4d5c 100%)",
+    parts: [
+      {
+        name: "Tilted Axis",
+        zoom: 1.18,
+        facts: [
+          "Uranus rotates on its side at 98 degrees of tilt.",
+          "This may have been caused by a giant collision early in the solar system."
+        ],
+        cat: {
+          id: "dizzy-mew",
+          name: "Dizzy Mew",
+          origin: "Uranus Axis",
+          description: "Spins in all directions without getting nauseous."
+        }
+      },
+      {
+        name: "Icy Atmosphere",
+        zoom: 1.16,
+        facts: [
+          "Uranus is made of water, methane, and ammonia ices.",
+          "It's the coldest planetary atmosphere in the solar system."
+        ],
+        cat: {
+          id: "glacier-whisker",
+          name: "Glacier Whisker",
+          origin: "Uranus Atmosphere",
+          description: "Constructs ice fortresses in methane snow storms."
+        }
+      },
+      {
+        name: "Faint Rings",
+        zoom: 1.2,
+        facts: [
+          "Uranus has a complex system of narrow, dark rings.",
+          "They are much less visible than Saturn's rings."
+        ],
+        cat: {
+          id: "shadow-paw",
+          name: "Shadow Paw",
+          origin: "Uranus Rings",
+          description: "Hunts in the darkness between invisible ring particles."
+        }
+      }
+    ]
+  },
+  {
+    id: "neptune",
+    label: "Neptune",
+    intro: "A deep blue ice giant with the fastest winds in the solar system.",
+    image: "Assets/solar-system/neptune.png",
+    texture: "radial-gradient(circle at 33% 31%, #4169e1 0%, #1e3a5f 50%, #0f1f34 100%)",
+    parts: [
+      {
+        name: "Great Dark Spot",
+        zoom: 1.23,
+        facts: [
+          "Neptune's Great Dark Spot is a storm larger than Earth.",
+          "It travels across the planet and then disappears."
+        ],
+        cat: {
+          id: "storm-dancer",
+          name: "Storm Dancer",
+          origin: "Neptune's Dark Spot",
+          description: "Performs acrobatics in the heart of cosmic hurricanes."
+        }
+      },
+      {
+        name: "Supersonic Winds",
+        zoom: 1.2,
+        facts: [
+          "Winds on Neptune reach 2,100 km/h.",
+          "These are the fastest winds ever recorded in the solar system."
+        ],
+        cat: {
+          id: "gale-pounce",
+          name: "Gale Pounce",
+          origin: "Neptune Winds",
+          description: "Catches prey at hypersonic speeds."
+        }
+      },
+      {
+        name: "Triton Moon",
+        zoom: 1.19,
+        facts: [
+          "Triton orbits backwards, suggesting it was captured from the Kuiper Belt.",
+          "It has icy volcanoes that erupt nitrogen geysers."
+        ],
+        cat: {
+          id: "geyser-whisker",
+          name: "Geyser Whisker",
+          origin: "Neptune's Triton",
+          description: "Rides nitrogen plumes and freezes instantly in the void."
+        }
+      }
+    ]
+  },
+  {
+    id: "pluto",
+    label: "Pluto",
+    intro: "The distant dwarf planet at the edge of our solar system.",
+    image: "Assets/solar-system/pluto.png",
+    texture: "radial-gradient(circle at 35% 35%, #d3d3d3 0%, #a9a9a9 50%, #696969 100%)",
+    parts: [
+      {
+        name: "Heart Region",
+        zoom: 1.2,
+        facts: [
+          "Pluto has a bright heart-shaped region called Tombaugh Regio.",
+          "The left side is filled with nitrogen ice."
+        ],
+        cat: {
+          id: "love-paw",
+          name: "Love Paw",
+          origin: "Pluto's Heart",
+          description: "Leaves paw prints shaped like hearts on frozen plains."
+        }
+      },
+      {
+        name: "Cthulhu Macula",
+        zoom: 1.17,
+        facts: [
+          "Pluto's dark equatorial region is named after a cosmic horror.",
+          "It may be filled with darker materials like organic compounds."
+        ],
+        cat: {
+          id: "mystic-mew",
+          name: "Mystic Mew",
+          origin: "Pluto's Dark Side",
+          description: "Purrs in alien tongues and dreams cosmic dreams."
+        }
+      },
+      {
+        name: "Charon Moon",
+        zoom: 1.21,
+        facts: [
+          "Charon is so large it and Pluto orbit each other.",
+          "Charon is nearly half the size of Pluto itself."
+        ],
+        cat: {
+          id: "dual-whisker",
+          name: "Dual Whisker",
+          origin: "Pluto and Charon",
+          description: "Dances between two worlds in an endless cosmic waltz."
+        }
+      }
+    ]
   }
 ];
 
@@ -165,6 +525,7 @@ const el = {
   startBtn: document.getElementById("startBtn"),
   mapBtn: document.getElementById("mapBtn"),
   catalogBtn: document.getElementById("catalogBtn"),
+  quitBtn: document.getElementById("quitBtn"),
   closeCatalogBtn: document.getElementById("closeCatalogBtn"),
   prevArrow: document.getElementById("prevArrow"),
   nextArrow: document.getElementById("nextArrow"),
@@ -201,6 +562,7 @@ function wireEvents() {
   el.startBtn.addEventListener("click", startMission);
   el.mapBtn.addEventListener("click", showMap);
   el.catalogBtn.addEventListener("click", openCatalog);
+  el.quitBtn.addEventListener("click", quitMission);
   el.closeCatalogBtn.addEventListener("click", closeCatalog);
   el.visitBtn.addEventListener("click", zoomToCurrentPlanet);
   el.prevArrow.addEventListener("click", () => stepPlanet(-1));
@@ -250,6 +612,18 @@ function startMission() {
   renderMapSelection();
   renderPlanet();
   showMap();
+}
+
+function quitMission() {
+  if (!confirm("Are you sure you want to return to the title screen? Your progress will be saved.")) {
+    return;
+  }
+  closeCatalog();
+  showMap();
+  state.started = false;
+  saveState();
+  el.app.hidden = true;
+  el.startScreen.hidden = false;
 }
 
 function getCurrentSystem() {
@@ -308,7 +682,11 @@ function renderPlanet() {
   const system = getCurrentSystem();
   el.planetTitle.textContent = system.label;
   el.planetIntro.textContent = system.intro;
-  el.planetObject.style.background = system.texture;
+  if (system.image) {
+    el.planetObject.style.backgroundImage = `url("${system.image}")`;
+  } else {
+    el.planetObject.style.backgroundImage = system.texture;
+  }
   el.factText.textContent = "Select a part first.";
   el.discoverStatus.textContent = "";
   el.discoverStatus.className = "discover-status";
