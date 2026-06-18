@@ -555,8 +555,10 @@ let isDragging = false;
 let lastX = 0;
 
 loadState();
+state.started = false;
 wireEvents();
 boot();
+generatePlanetPins();
 
 function wireEvents() {
   el.startBtn.addEventListener("click", startMission);
@@ -626,6 +628,56 @@ function quitMission() {
   el.startScreen.hidden = false;
 }
 
+function generatePlanetPins() {
+  const solarStage = el.solarStage;
+  solarStage.querySelectorAll(".planet-pin").forEach((pin) => pin.remove());
+
+  const center = 50;
+  const pointOnOrbit = (orbitPct, angleDeg) => {
+    const radius = orbitPct / 2;
+    const rad = (angleDeg * Math.PI) / 180;
+    return {
+      x: center + radius * Math.cos(rad),
+      y: center + radius * Math.sin(rad)
+    };
+  };
+
+  const positionsById = {
+    sun: { x: 50, y: 50 },
+    mercury: pointOnOrbit(20, -12),
+    venus: pointOnOrbit(28, 26),
+    earth: pointOnOrbit(36, 86),
+    mars: pointOnOrbit(44, 138),
+    jupiter: pointOnOrbit(56, 184),
+    saturn: pointOnOrbit(64, 238),
+    uranus: pointOnOrbit(72, 294),
+    neptune: pointOnOrbit(80, 332),
+    pluto: pointOnOrbit(88, 34)
+  };
+
+  systems.forEach((system, index) => {
+    const pos = positionsById[system.id];
+    if (!pos) return;
+    const pin = document.createElement("div");
+    pin.className = `planet-pin ${system.id}`;
+    pin.dataset.index = index;
+    pin.tabIndex = 0;
+    pin.role = "button";
+    pin.ariaLabel = `Visit ${system.label}`;
+    pin.style.left = pos.x + "%";
+    pin.style.top = pos.y + "%";
+    pin.style.transform = "translate(-50%, -50%)";
+    pin.addEventListener("click", () => selectPlanet(index));
+    pin.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectPlanet(index);
+      }
+    });
+    solarStage.appendChild(pin);
+  });
+}
+
 function getCurrentSystem() {
   return systems[state.currentIndex];
 }
@@ -663,17 +715,17 @@ function showMap() {
   el.mapView.hidden = false;
   el.planetView.hidden = true;
   el.locationLabel.textContent = "Solar System Map";
-  el.solarStage.classList.remove("zooming");
+  el.solarStage.classList.remove("spiral-zoom");
 }
 
 function zoomToCurrentPlanet() {
-  el.solarStage.classList.add("zooming");
+  el.solarStage.classList.add("spiral-zoom");
   setTimeout(() => {
     viewMode = "planet";
     el.mapView.hidden = true;
     el.planetView.hidden = false;
     el.locationLabel.textContent = getCurrentSystem().label;
-    el.solarStage.classList.remove("zooming");
+    el.solarStage.classList.remove("spiral-zoom");
     renderPlanet();
   }, 900);
 }
