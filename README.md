@@ -7,7 +7,6 @@ Galaxy-themed interactive website where users travel between planets, learn fact
 - Start screen with cinematic galaxy backdrop
 - Solar System map view with selectable planets and side-arrow navigation
 - Zoom transition from map into destination worlds
-- Planet exploration view with drag-to-rotate interaction
 - Planet-part fact discovery flow (Sun, Mars, Jupiter)
 - Cat Catalog modal with persistent unlock progress
 - Progress persists with localStorage

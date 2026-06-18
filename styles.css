@@ -21,6 +21,9 @@
   --brand-2: #d2e4ff;
   --ok: #6dffb1;
   --warn: #ff9fb4;
+  --px-edge: #9bc3ff;
+  --px-shadow: rgba(5, 8, 26, 0.78);
+  --px-panel: linear-gradient(180deg, rgba(15, 28, 71, 0.94), rgba(8, 17, 46, 0.96));
 }
 
 * {
@@ -34,9 +37,50 @@ body {
   font-weight: 700;
   color: var(--ink);
   background:
-    linear-gradient(165deg, rgba(2, 3, 13, 0.72), rgba(7, 20, 41, 0.8)),
+    radial-gradient(circle at 16% 24%, rgba(110, 162, 255, 0.26), transparent 46%),
+    radial-gradient(circle at 82% 70%, rgba(255, 126, 184, 0.25), transparent 44%),
+    linear-gradient(112deg, #273f98 0%, #2f3a88 36%, #3a336f 60%, #64335f 82%, #874a73 100%),
     url("Assets/solar-system/background.png") center / cover fixed no-repeat;
+  background-blend-mode: screen, screen, normal, soft-light;
   overflow-x: hidden;
+  image-rendering: pixelated;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.2;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.24) 0,
+      rgba(255, 255, 255, 0.24) 2px,
+      transparent 2px,
+      transparent 10px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.24) 0,
+      rgba(255, 255, 255, 0.24) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(180deg, rgba(113, 154, 255, 0.62), rgba(255, 117, 179, 0.56));
+  background-size: 18px 18px;
+  mix-blend-mode: soft-light;
 }
 
 .space-backdrop {
@@ -50,62 +94,127 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(1.7px 1.7px at 3% 9%, rgba(255, 255, 255, 0.66), transparent),
-    radial-gradient(1.4px 1.4px at 8% 44%, rgba(255, 255, 255, 0.57), transparent),
-    radial-gradient(1.8px 1.8px at 12% 78%, rgba(255, 255, 255, 0.64), transparent),
-    radial-gradient(1.3px 1.3px at 17% 23%, rgba(255, 255, 255, 0.53), transparent),
-    radial-gradient(1.6px 1.6px at 21% 62%, rgba(255, 255, 255, 0.61), transparent),
-    radial-gradient(1.4px 1.4px at 26% 6%, rgba(255, 255, 255, 0.56), transparent),
-    radial-gradient(1.9px 1.9px at 31% 38%, rgba(255, 255, 255, 0.68), transparent),
-    radial-gradient(1.5px 1.5px at 35% 88%, rgba(255, 255, 255, 0.6), transparent),
-    radial-gradient(1.6px 1.6px at 40% 14%, rgba(255, 255, 255, 0.58), transparent),
-    radial-gradient(1.3px 1.3px at 45% 52%, rgba(255, 255, 255, 0.52), transparent),
-    radial-gradient(1.7px 1.7px at 49% 73%, rgba(255, 255, 255, 0.65), transparent),
-    radial-gradient(1.5px 1.5px at 54% 29%, rgba(255, 255, 255, 0.57), transparent),
-    radial-gradient(1.8px 1.8px at 59% 95%, rgba(255, 255, 255, 0.67), transparent),
-    radial-gradient(1.4px 1.4px at 63% 11%, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1.6px 1.6px at 68% 41%, rgba(255, 255, 255, 0.6), transparent),
-    radial-gradient(1.3px 1.3px at 72% 66%, rgba(255, 255, 255, 0.53), transparent),
-    radial-gradient(1.9px 1.9px at 77% 21%, rgba(255, 255, 255, 0.67), transparent),
-    radial-gradient(1.4px 1.4px at 81% 83%, rgba(255, 255, 255, 0.56), transparent),
-    radial-gradient(1.7px 1.7px at 86% 35%, rgba(255, 255, 255, 0.63), transparent),
-    radial-gradient(1.5px 1.5px at 91% 57%, rgba(255, 255, 255, 0.58), transparent),
-    radial-gradient(1.8px 1.8px at 95% 13%, rgba(255, 255, 255, 0.66), transparent),
-    radial-gradient(1.4px 1.4px at 98% 74%, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1.6px 1.6px at 46% 33%, rgba(255, 255, 255, 0.62), transparent),
-    radial-gradient(1.4px 1.4px at 53% 11%, rgba(255, 255, 255, 0.57), transparent),
-    radial-gradient(1.3px 1.3px at 57% 47%, rgba(255, 255, 255, 0.56), transparent),
-    radial-gradient(1.5px 1.5px at 61% 26%, rgba(255, 255, 255, 0.61), transparent),
-    radial-gradient(1.4px 1.4px at 66% 58%, rgba(255, 255, 255, 0.58), transparent),
-    radial-gradient(1.7px 1.7px at 71% 8%, rgba(255, 255, 255, 0.64), transparent),
-    radial-gradient(1.3px 1.3px at 75% 44%, rgba(255, 255, 255, 0.54), transparent),
-    radial-gradient(1.6px 1.6px at 79% 69%, rgba(255, 255, 255, 0.62), transparent),
-    radial-gradient(1.4px 1.4px at 83% 9%, rgba(255, 255, 255, 0.57), transparent),
-    radial-gradient(1.5px 1.5px at 88% 48%, rgba(255, 255, 255, 0.6), transparent),
-    radial-gradient(1.3px 1.3px at 92% 31%, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1.6px 1.6px at 96% 52%, rgba(255, 255, 255, 0.63), transparent);
-  opacity: 0.8;
+    radial-gradient(1.4px 1.4px at 3% 11%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.1px 1.1px at 11% 39%, rgba(225, 240, 255, 0.62), transparent),
+    radial-gradient(1.6px 1.6px at 17% 74%, rgba(255, 255, 255, 0.66), transparent),
+    radial-gradient(1.2px 1.2px at 27% 14%, rgba(214, 234, 255, 0.56), transparent),
+    radial-gradient(1.5px 1.5px at 34% 57%, rgba(255, 255, 255, 0.63), transparent),
+    radial-gradient(1.2px 1.2px at 42% 86%, rgba(216, 232, 255, 0.54), transparent),
+    radial-gradient(1.7px 1.7px at 52% 27%, rgba(255, 255, 255, 0.67), transparent),
+    radial-gradient(1.1px 1.1px at 61% 62%, rgba(218, 236, 255, 0.58), transparent),
+    radial-gradient(1.4px 1.4px at 69% 9%, rgba(255, 255, 255, 0.65), transparent),
+    radial-gradient(1.3px 1.3px at 77% 43%, rgba(223, 240, 255, 0.57), transparent),
+    radial-gradient(1.6px 1.6px at 85% 78%, rgba(255, 255, 255, 0.66), transparent),
+    radial-gradient(1.2px 1.2px at 94% 24%, rgba(220, 236, 255, 0.6), transparent),
+    radial-gradient(1200px 900px at 50% 55%, rgba(7, 20, 41, 0), rgba(2, 3, 13, 0.22));
+  opacity: 0.9;
+  animation: starsDrift 20s linear infinite alternate;
+  image-rendering: pixelated;
+  filter: contrast(1.08) saturate(1.08);
 }
 
 .starfield::before,
 .starfield::after {
+  content: "";
   position: absolute;
-  color: rgba(255, 255, 255, 0.62);
-  white-space: pre;
-  letter-spacing: 0.5rem;
-  line-height: 2.1rem;
-  font-size: 0.95rem;
+  inset: 0;
+  pointer-events: none;
 }
 
 .starfield::before {
-  content: "✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧\A ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧\A☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧";
-  inset: 0% 1% auto 1%;
+  background-image:
+    radial-gradient(4px 4px at 8% 20%, rgba(180, 214, 255, 0.3), transparent 70%),
+    radial-gradient(5px 5px at 18% 84%, rgba(196, 226, 255, 0.28), transparent 70%),
+    radial-gradient(4px 4px at 31% 46%, rgba(166, 209, 255, 0.26), transparent 70%),
+    radial-gradient(4px 4px at 47% 14%, rgba(188, 220, 255, 0.27), transparent 70%),
+    radial-gradient(5px 5px at 59% 74%, rgba(174, 214, 255, 0.24), transparent 70%),
+    radial-gradient(4px 4px at 73% 35%, rgba(191, 224, 255, 0.26), transparent 70%),
+    radial-gradient(5px 5px at 86% 56%, rgba(176, 211, 255, 0.22), transparent 70%);
+  animation: glyphTwinkle 4.6s ease-in-out infinite alternate;
 }
 
 .starfield::after {
-  content: "✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧\A ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧\A ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆\A✧   ☆    ✧   ☆    ✧   ☆    ✧   ☆    ✧";
-  inset: auto 1% 0% 1%;
-  opacity: 0.55;
+  background-image:
+    radial-gradient(1px 1px at 6% 7%, rgba(255, 255, 255, 0.74), transparent),
+    radial-gradient(1px 1px at 14% 64%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 22% 32%, rgba(255, 255, 255, 0.73), transparent),
+    radial-gradient(1px 1px at 37% 18%, rgba(255, 255, 255, 0.71), transparent),
+    radial-gradient(1px 1px at 43% 69%, rgba(255, 255, 255, 0.69), transparent),
+    radial-gradient(1px 1px at 56% 48%, rgba(255, 255, 255, 0.74), transparent),
+    radial-gradient(1px 1px at 66% 88%, rgba(255, 255, 255, 0.68), transparent),
+    radial-gradient(1px 1px at 79% 15%, rgba(255, 255, 255, 0.72), transparent),
+    radial-gradient(1px 1px at 91% 38%, rgba(255, 255, 255, 0.7), transparent);
+  opacity: 0.72;
+  animation: starsDrift 14s linear infinite reverse;
+}
+
+.map-view {
+  position: relative;
+  overflow: hidden;
+}
+
+.emoji-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  image-rendering: pixelated;
+}
+
+.emoji-star {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: rgba(214, 235, 255, 0.5);
+  text-shadow: 0 0 11px rgba(185, 224, 255, 0.2);
+  will-change: transform, opacity;
+  animation-name: emojiTwinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.emoji-star-large {
+  color: rgba(228, 241, 255, 0.86);
+  text-shadow:
+    2px 0 0 rgba(144, 192, 255, 0.46),
+    -2px 0 0 rgba(144, 192, 255, 0.46),
+    0 2px 0 rgba(144, 192, 255, 0.46),
+    0 -2px 0 rgba(144, 192, 255, 0.46);
+  filter: saturate(1.08);
+}
+
+.warp-transition {
+  position: absolute;
+  inset: -16%;
+  opacity: 0;
+  transform: scale(0.45) rotate(0deg);
+  pointer-events: none;
+  z-index: 5;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255, 248, 215, 0.72) 0%, rgba(255, 208, 132, 0.44) 13%, rgba(255, 143, 109, 0.2) 25%, rgba(20, 18, 46, 0.14) 56%, rgba(10, 10, 26, 0) 70%),
+    url("https://images.stockcake.com/public/9/b/d/9bd8e7fd-0f5b-4517-b807-ded7afc1d6d7_large/galactic-spiral-art-stockcake.jpg");
+  background-position: center, center;
+  background-size: 100% 100%, cover;
+  background-repeat: no-repeat;
+  filter: blur(1px) saturate(1.2) brightness(1.08);
+  mix-blend-mode: screen;
+}
+
+.warp-transition::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  background-image: url("https://images.stockcake.com/public/9/b/d/9bd8e7fd-0f5b-4517-b807-ded7afc1d6d7_large/galactic-spiral-art-stockcake.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.38;
+  filter: blur(8px) saturate(1.32);
+  transform: rotate(-8deg) scale(1.04);
+}
+
+.map-view.warping .warp-transition {
+  animation: galaxyWarp 1050ms cubic-bezier(0.12, 0.77, 0.09, 1) forwards;
 }
 
 .nebula {
@@ -114,6 +223,7 @@ body {
   height: 52vmax;
   filter: blur(58px);
   opacity: 0.22;
+  z-index: 2;
 }
 
 .nebula-left {
@@ -167,7 +277,7 @@ h4 {
 
 h1 {
   font-size: clamp(2.2rem, 8vw, 5rem);
-  text-shadow: 0 0 28px rgba(99, 244, 255, 0.35);
+  text-shadow: 4px 4px 0 rgba(16, 24, 62, 0.9);
 }
 
 .start-screen p {
@@ -177,38 +287,41 @@ h1 {
 }
 
 .btn {
-  border: 1px solid transparent;
-  border-radius: 999px;
+  border: 2px solid var(--px-edge);
+  border-radius: 0;
   padding: 0.7rem 1.2rem;
   color: var(--ink);
   cursor: pointer;
   font: inherit;
   font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
   transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translate(-2px, -2px);
 }
 
 .btn-primary {
-  background: linear-gradient(130deg, #42d7ff, #ffb86f);
-  color: #0a1428;
-  box-shadow: 0 10px 24px rgba(66, 215, 255, 0.28);
+  background: linear-gradient(180deg, #87e0ff 0%, #77a8ff 52%, #6e87f2 100%);
+  color: #f0f6ff;
+  box-shadow: 5px 5px 0 var(--px-shadow);
 }
 
 #startBtn,
 #visitBtn {
-  background: linear-gradient(110deg, #79d8ff 0%, #7d8dff 48%, #cb7dff 100%);
+  background: linear-gradient(180deg, #79d8ff 0%, #7d8dff 48%, #cb7dff 100%);
   color: #f0f6ff;
-  border-color: rgba(216, 231, 255, 0.45);
-  box-shadow: 0 10px 26px rgba(115, 141, 255, 0.44);
+  border-color: #c9dcff;
+  box-shadow: 5px 5px 0 rgba(22, 29, 79, 0.8);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(200, 220, 255, 0.3);
+  background: rgba(95, 118, 173, 0.38);
+  border-color: rgba(200, 220, 255, 0.62);
   color: var(--ink);
+  box-shadow: 4px 4px 0 rgba(17, 23, 64, 0.7);
 }
 
 .app {
@@ -223,10 +336,11 @@ h1 {
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--card);
-  backdrop-filter: blur(8px);
+  border: 2px solid var(--px-edge);
+  border-radius: 0;
+  background: var(--px-panel);
+  backdrop-filter: none;
+  box-shadow: 6px 6px 0 rgba(9, 12, 36, 0.72);
 }
 
 .title-block h2 {
@@ -246,11 +360,12 @@ h1 {
 }
 
 .view {
-  border: 1px solid var(--line);
-  background: var(--card);
-  border-radius: 16px;
+  border: 2px solid var(--px-edge);
+  background: var(--px-panel);
+  border-radius: 0;
   padding: 1rem;
   min-height: 76vh;
+  box-shadow: 8px 8px 0 rgba(9, 12, 36, 0.7);
 }
 
 .view-title {
@@ -268,10 +383,11 @@ h1 {
   transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1100ms ease, filter 1100ms ease;
 }
 
+.map-view.warping .solar-stage,
 .solar-stage.spiral-zoom {
-  transform: rotate(1280deg) scale(0.04);
+  transform: rotate(1540deg) scale(0.05);
   opacity: 0;
-  filter: blur(2px);
+  filter: blur(5px) saturate(1.35);
 }
 
 .orbit {
@@ -334,15 +450,16 @@ h1 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  box-shadow: inset -8px -8px 18px rgba(0, 0, 0, 0.3), 0 0 24px rgba(255, 255, 255, 0.14);
+  box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.36), 3px 3px 0 rgba(6, 9, 26, 0.75);
   transition: transform 160ms ease, box-shadow 160ms ease;
+  image-rendering: pixelated;
 }
 
 .planet-pin:hover,
 .planet-pin:focus-visible,
 .planet-pin.selected {
   transform: scale(1.1);
-  box-shadow: inset -8px -8px 18px rgba(0, 0, 0, 0.3), 0 14px 24px rgba(0, 0, 0, 0.45);
+  box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.36), 4px 4px 0 rgba(6, 9, 26, 0.82);
   outline: none;
 }
 
@@ -467,7 +584,8 @@ h1 {
   background-size: cover;
   cursor: grab;
   transition: transform 260ms ease, box-shadow 260ms ease;
-  box-shadow: inset -22px -18px 26px rgba(0, 0, 0, 0.3), 0 0 36px rgba(255, 255, 255, 0.18);
+  box-shadow: inset -16px -12px 0 rgba(0, 0, 0, 0.34), 5px 5px 0 rgba(5, 8, 24, 0.7);
+  image-rendering: pixelated;
 }
 
 .planet-object:active {
@@ -489,10 +607,11 @@ h1 {
 }
 
 .planet-panel {
-  border: 1px solid var(--line);
-  border-radius: 14px;
+  border: 2px solid var(--px-edge);
+  border-radius: 0;
   padding: 1rem;
-  background: var(--card);
+  background: var(--px-panel);
+  box-shadow: 6px 6px 0 rgba(9, 12, 36, 0.65);
 }
 
 .planet-panel p {
@@ -507,13 +626,14 @@ h1 {
 }
 
 .part-chip {
-  border: 1px solid rgba(195, 218, 252, 0.33);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(195, 218, 252, 0.7);
+  border-radius: 0;
+  background: rgba(95, 118, 173, 0.38);
   color: var(--ink);
   padding: 0.38rem 0.72rem;
   font: inherit;
   cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(8, 12, 34, 0.65);
 }
 
 .part-chip.active {
@@ -552,13 +672,14 @@ h1 {
   transform: translateY(-50%);
   width: 46px;
   height: 46px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--card);
+  border-radius: 0;
+  border: 2px solid var(--px-edge);
+  background: var(--px-panel);
   color: var(--ink);
   font-size: 1.05rem;
   cursor: pointer;
   z-index: 3;
+  box-shadow: 4px 4px 0 rgba(8, 12, 34, 0.7);
 }
 
 .side-arrow.left {
@@ -577,11 +698,11 @@ h1 {
   max-height: 84vh;
   overflow: auto;
   z-index: 6;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: var(--card);
+  border-radius: 0;
+  border: 2px solid var(--px-edge);
+  background: var(--px-panel);
   padding: 1rem;
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.4);
+  box-shadow: 10px 10px 0 rgba(8, 12, 34, 0.76);
 }
 
 .catalog-head {
@@ -598,10 +719,16 @@ h1 {
 }
 
 .catalog-card {
-  border-radius: 12px;
-  border: 1px solid rgba(193, 216, 246, 0.25);
+  border-radius: 0;
+  border: 2px solid rgba(193, 216, 246, 0.54);
   padding: 0.8rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(95, 118, 173, 0.22);
+  box-shadow: 4px 4px 0 rgba(9, 12, 34, 0.62);
+}
+
+.warp-transition,
+.warp-transition::before {
+  image-rendering: pixelated;
 }
 
 .catalog-card h4 {
@@ -635,12 +762,46 @@ h1 {
 
 @keyframes glyphTwinkle {
   from {
-    opacity: 0.38;
+    opacity: 0.42;
     transform: translateY(0);
   }
   to {
-    opacity: 0.82;
+    opacity: 0.88;
     transform: translateY(-8px);
+  }
+}
+
+@keyframes galaxyWarp {
+  0% {
+    opacity: 0;
+    transform: scale(0.42) rotate(0deg);
+    filter: blur(7px) saturate(1.06) brightness(0.95);
+  }
+  20% {
+    opacity: 0.56;
+    transform: scale(0.78) rotate(300deg);
+    filter: blur(4px) saturate(1.16) brightness(1.02);
+  }
+  58% {
+    opacity: 0.9;
+    transform: scale(1.24) rotate(980deg);
+    filter: blur(1px) saturate(1.3) brightness(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.4) rotate(1690deg);
+    filter: blur(9px) saturate(1.38) brightness(1.18);
+  }
+}
+
+@keyframes emojiTwinkle {
+  from {
+    opacity: 0.26;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(1.08);
   }
 }
 
@@ -694,5 +855,15 @@ h1 {
 
   .side-arrow.right {
     right: calc(50% - 58px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield,
+  .starfield::before,
+  .starfield::after,
+  .emoji-star,
+  .map-view.warping .warp-transition {
+    animation: none !important;
   }
 }

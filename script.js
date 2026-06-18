@@ -534,6 +534,7 @@ const el = {
   mapHint: document.getElementById("mapHint"),
   visitBtn: document.getElementById("visitBtn"),
   locationLabel: document.getElementById("locationLabel"),
+  emojiStars: document.getElementById("emojiStars"),
   planetObject: document.getElementById("planetObject"),
   planetTitle: document.getElementById("planetTitle"),
   planetIntro: document.getElementById("planetIntro"),
@@ -584,6 +585,12 @@ function wireEvents() {
       }
     });
   });
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(populateEmojiStars, 150);
+  });
 }
 
 function boot() {
@@ -599,6 +606,93 @@ function boot() {
   }
 
   renderCatalog();
+  populateEmojiStars();
+}
+
+function populateEmojiStars() {
+  if (!el.emojiStars) return;
+
+  const symbols = ["✦", "✧", "☆", "✶"];
+  const cols = 7;
+  const rows = 4;
+  const stars = [];
+
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      // Skip some cells to keep stars sparse and less grid-like.
+      if (Math.random() < 0.33) continue;
+
+      const cellX = (col + 0.5) * (100 / cols);
+      const cellY = (row + 0.5) * (100 / rows);
+      const jitterX = (Math.random() - 0.5) * (100 / cols) * 0.74;
+      const jitterY = (Math.random() - 0.5) * (100 / rows) * 0.74;
+
+      stars.push({
+        x: Math.max(2, Math.min(98, cellX + jitterX)),
+        y: Math.max(3, Math.min(97, cellY + jitterY)),
+        symbol: symbols[Math.floor(Math.random() * symbols.length)],
+        size: (1.35 + Math.random() * 2.45).toFixed(2),
+        opacity: (0.2 + Math.random() * 0.34).toFixed(2),
+        delay: (Math.random() * 4.6).toFixed(2),
+        duration: (3.6 + Math.random() * 3.2).toFixed(2)
+      });
+    }
+  }
+
+  // Ensure enough stars render even if random skips are high.
+  while (stars.length < 16) {
+    stars.push({
+      x: 4 + Math.random() * 92,
+      y: 5 + Math.random() * 90,
+      symbol: symbols[Math.floor(Math.random() * symbols.length)],
+      size: (1.35 + Math.random() * 2.45).toFixed(2),
+      opacity: (0.2 + Math.random() * 0.34).toFixed(2),
+      delay: (Math.random() * 4.6).toFixed(2),
+      duration: (3.6 + Math.random() * 3.2).toFixed(2)
+    });
+  }
+
+  const largeAnchors = [
+    { x: 8, y: 10 },
+    { x: 19, y: 28 },
+    { x: 30, y: 8 },
+    { x: 62, y: 18 },
+    { x: 79, y: 30 },
+    { x: 90, y: 8 },
+    { x: 92, y: 46 },
+    { x: 10, y: 86 },
+    { x: 24, y: 92 },
+    { x: 39, y: 66 },
+    { x: 56, y: 42 },
+    { x: 74, y: 78 },
+    { x: 86, y: 84 }
+  ];
+
+  const largeStars = largeAnchors.map((anchor) => {
+    const jitterX = (Math.random() - 0.5) * 6.6;
+    const jitterY = (Math.random() - 0.5) * 8.4;
+    return {
+      x: Math.max(3, Math.min(97, anchor.x + jitterX)),
+      y: Math.max(4, Math.min(96, anchor.y + jitterY)),
+      symbol: Math.random() < 0.72 ? "✦" : "✧",
+      size: (5.2 + Math.random() * 5.1).toFixed(2),
+      opacity: (0.5 + Math.random() * 0.35).toFixed(2),
+      delay: (Math.random() * 6.2).toFixed(2),
+      duration: (5.6 + Math.random() * 4.6).toFixed(2)
+    };
+  });
+
+  const smallStarMarkup = stars.map(
+    (star) =>
+      `<span class="emoji-star" style="left:${star.x}%;top:${star.y}%;font-size:${star.size}rem;opacity:${star.opacity};animation-delay:${star.delay}s;animation-duration:${star.duration}s">${star.symbol}</span>`
+  );
+
+  const largeStarMarkup = largeStars.map(
+    (star) =>
+      `<span class="emoji-star emoji-star-large" style="left:${star.x}%;top:${star.y}%;font-size:${star.size}rem;opacity:${star.opacity};animation-delay:${star.delay}s;animation-duration:${star.duration}s">${star.symbol}</span>`
+  );
+
+  el.emojiStars.innerHTML = [...largeStarMarkup, ...smallStarMarkup].join("");
 }
 
 function startMission() {
@@ -710,19 +804,22 @@ function showMap() {
   el.mapView.hidden = false;
   el.planetView.hidden = true;
   el.locationLabel.textContent = "Solar System Map";
+  el.mapView.classList.remove("warping");
   el.solarStage.classList.remove("spiral-zoom");
 }
 
 function zoomToCurrentPlanet() {
+  el.mapView.classList.add("warping");
   el.solarStage.classList.add("spiral-zoom");
   setTimeout(() => {
     viewMode = "planet";
     el.mapView.hidden = true;
     el.planetView.hidden = false;
     el.locationLabel.textContent = getCurrentSystem().label;
+    el.mapView.classList.remove("warping");
     el.solarStage.classList.remove("spiral-zoom");
     renderPlanet();
-  }, 900);
+  }, 1050);
 }
 
 function renderPlanet() {
