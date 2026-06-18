@@ -515,7 +515,6 @@ const state = {
   started: false,
   currentIndex: 0,
   selectedPartIndex: 0,
-  rotationY: 0,
   foundCats: []
 };
 
@@ -585,10 +584,6 @@ function wireEvents() {
       }
     });
   });
-
-  el.planetObject.addEventListener("pointerdown", onDragStart);
-  window.addEventListener("pointermove", onDragMove);
-  window.addEventListener("pointerup", onDragEnd);
 }
 
 function boot() {
@@ -794,31 +789,10 @@ function applyPlanetTransform() {
   const part = getCurrentSystem().parts[state.selectedPartIndex];
   const zoom = part ? part.zoom : 1;
   el.planetObject.style.setProperty("--planet-zoom", String(zoom));
-  el.planetObject.style.transform = `translate(-50%, -50%) rotateY(${state.rotationY}deg) scale(${zoom})`;
+  el.planetObject.style.transform = `translate(-50%, -50%) scale(${zoom})`;
 }
 
-function onDragStart(event) {
-  isDragging = true;
-  lastX = event.clientX;
-  el.planetObject.setPointerCapture(event.pointerId);
-}
 
-function onDragMove(event) {
-  if (!isDragging) return;
-  const delta = event.clientX - lastX;
-  lastX = event.clientX;
-  state.rotationY += delta * 0.5;
-  applyPlanetTransform();
-}
-
-function onDragEnd(event) {
-  if (!isDragging) return;
-  isDragging = false;
-  if (el.planetObject.hasPointerCapture(event.pointerId)) {
-    el.planetObject.releasePointerCapture(event.pointerId);
-  }
-  saveState();
-}
 
 function openCatalog() {
   renderCatalog();
@@ -861,7 +835,6 @@ function loadState() {
     if (typeof parsed.started === "boolean") state.started = parsed.started;
     if (typeof parsed.currentIndex === "number") state.currentIndex = clampIndex(parsed.currentIndex);
     if (typeof parsed.selectedPartIndex === "number") state.selectedPartIndex = Math.max(0, parsed.selectedPartIndex);
-    if (typeof parsed.rotationY === "number") state.rotationY = parsed.rotationY;
     if (Array.isArray(parsed.foundCats)) {
       const validIds = new Set(systems.flatMap((s) => s.parts.map((p) => p.cat.id)));
       state.foundCats = parsed.foundCats.filter((id) => typeof id === "string" && validIds.has(id));
