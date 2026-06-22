@@ -21,10 +21,10 @@
   --brand-2: #d2e4ff;
   --ok: #6dffb1;
   --warn: #ff9fb4;
-  --px-edge: #9bc3ff;
-  --px-shadow: rgba(5, 8, 26, 0.78);
+  --px-edge: rgba(170, 170, 220, 0.65);
+  --px-shadow: rgba(0, 0, 0, 0.5);
   --px-panel: linear-gradient(180deg, rgba(15, 28, 71, 0.94), rgba(8, 17, 46, 0.96));
-  --celestial-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.34), 4px 4px 0 rgba(6, 9, 26, 0.78);
+  --celestial-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.5), 4px 4px 0 rgba(0, 0, 0, 0.5);
   --celestial-glow: 0 0 0 2px rgba(170, 214, 255, 0.82), 0 0 16px rgba(109, 187, 255, 0.62);
 }
 
@@ -38,14 +38,9 @@ body {
   font-family: "DotFont", "Manrope", sans-serif;
   font-weight: 700;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 16% 24%, rgba(110, 162, 255, 0.15), transparent 46%),
-    radial-gradient(circle at 82% 70%, rgba(255, 126, 184, 0.15), transparent 44%),
-    linear-gradient(112deg, rgba(39, 63, 152, 0.44) 0%, rgba(47, 58, 136, 0.42) 36%, rgba(58, 51, 111, 0.4) 60%, rgba(100, 51, 95, 0.4) 82%, rgba(135, 74, 115, 0.4) 100%),
-    url("Assets/solar-system/background.png") center / cover fixed no-repeat;
-  background-blend-mode: screen, screen, normal, normal;
+  background: url("Assets/solar-system/background.png") center / cover fixed no-repeat;
+  background-attachment: fixed;
   overflow-x: hidden;
-  image-rendering: pixelated;
 }
 
 body::before {
@@ -54,22 +49,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.2;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.24) 0,
-      rgba(255, 255, 255, 0.24) 2px,
-      transparent 2px,
-      transparent 10px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.24) 0,
-      rgba(255, 255, 255, 0.24) 2px,
-      transparent 2px,
-      transparent 10px
-    );
+  display: none;
 }
 
 body::after {
@@ -78,11 +58,7 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.08;
-  background-image:
-    linear-gradient(180deg, rgba(113, 154, 255, 0.62), rgba(255, 117, 179, 0.56));
-  background-size: 18px 18px;
-  mix-blend-mode: soft-light;
+  display: none;
 }
 
 .space-backdrop {
@@ -95,24 +71,7 @@ body::after {
 .starfield {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(1.4px 1.4px at 3% 11%, rgba(255, 255, 255, 0.7), transparent),
-    radial-gradient(1.1px 1.1px at 11% 39%, rgba(225, 240, 255, 0.62), transparent),
-    radial-gradient(1.6px 1.6px at 17% 74%, rgba(255, 255, 255, 0.66), transparent),
-    radial-gradient(1.2px 1.2px at 27% 14%, rgba(214, 234, 255, 0.56), transparent),
-    radial-gradient(1.5px 1.5px at 34% 57%, rgba(255, 255, 255, 0.63), transparent),
-    radial-gradient(1.2px 1.2px at 42% 86%, rgba(216, 232, 255, 0.54), transparent),
-    radial-gradient(1.7px 1.7px at 52% 27%, rgba(255, 255, 255, 0.67), transparent),
-    radial-gradient(1.1px 1.1px at 61% 62%, rgba(218, 236, 255, 0.58), transparent),
-    radial-gradient(1.4px 1.4px at 69% 9%, rgba(255, 255, 255, 0.65), transparent),
-    radial-gradient(1.3px 1.3px at 77% 43%, rgba(223, 240, 255, 0.57), transparent),
-    radial-gradient(1.6px 1.6px at 85% 78%, rgba(255, 255, 255, 0.66), transparent),
-    radial-gradient(1.2px 1.2px at 94% 24%, rgba(220, 236, 255, 0.6), transparent),
-    radial-gradient(1200px 900px at 50% 55%, rgba(7, 20, 41, 0), rgba(2, 3, 13, 0.22));
-  opacity: 0.62;
-  animation: starsDrift 20s linear infinite alternate;
-  image-rendering: pixelated;
-  filter: contrast(1.08) saturate(1.08);
+  display: none;
 }
 
 .starfield::before,
@@ -160,7 +119,7 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 4;
-  image-rendering: pixelated;
+  display: none;
 }
 
 .emoji-star {
@@ -169,10 +128,7 @@ body::after {
   color: rgba(214, 235, 255, 0.5);
   text-shadow: 0 0 11px rgba(185, 224, 255, 0.2);
   will-change: transform, opacity;
-  animation-name: emojiTwinkle;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  animation: none;
 }
 
 .emoji-star-large {
@@ -470,6 +426,10 @@ h1 {
   outline: none;
 }
 
+.planet-pin.selected:not(.saturn) {
+  box-shadow: var(--celestial-shadow), var(--celestial-glow);
+}
+
 .sun {
   width: 94px;
   height: 94px;
@@ -518,13 +478,18 @@ h1 {
   height: 54px;
   background-image: url("Assets/solar-system/saturn.png");
   clip-path: none;
-  border-radius: 0;
+  border-radius: 50%;
   overflow: visible;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   background-color: transparent;
   mix-blend-mode: screen;
   z-index: 2;
+}
+
+.saturn.selected {
+  filter: drop-shadow(0 0 0 2px rgba(170, 214, 255, 0.82)) drop-shadow(0 0 16px rgba(109, 187, 255, 0.62));
 }
 
 .uranus {
@@ -871,6 +836,15 @@ h1 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes spiralSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
