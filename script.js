@@ -518,12 +518,16 @@ const state = {
   foundCats: []
 };
 
+const WARP_DURATION_MS = 1050;
+const ARRIVAL_DURATION_MS = 760;
+
 const el = {
   startScreen: document.getElementById("startScreen"),
   app: document.getElementById("app"),
   startBtn: document.getElementById("startBtn"),
   mapBtn: document.getElementById("mapBtn"),
   catalogBtn: document.getElementById("catalogBtn"),
+  resetBtn: document.getElementById("resetBtn"),
   quitBtn: document.getElementById("quitBtn"),
   closeCatalogBtn: document.getElementById("closeCatalogBtn"),
   prevArrow: document.getElementById("prevArrow"),
@@ -531,6 +535,12 @@ const el = {
   mapView: document.getElementById("mapView"),
   planetView: document.getElementById("planetView"),
   solarStage: document.getElementById("solarStage"),
+  arrivalTransition: document.getElementById("arrivalTransition"),
+  arrivalBodyLeft: document.getElementById("arrivalBodyLeft"),
+  arrivalBodyCenter: document.getElementById("arrivalBodyCenter"),
+  arrivalBodyRight: document.getElementById("arrivalBodyRight"),
+  arrivalLabel: document.getElementById("arrivalLabel"),
+  arrivalIntro: document.getElementById("arrivalIntro"),
   mapHint: document.getElementById("mapHint"),
   visitBtn: document.getElementById("visitBtn"),
   locationLabel: document.getElementById("locationLabel"),
@@ -550,12 +560,16 @@ const el = {
   cardTemplate: document.getElementById("catalogCardTemplate"),
   quitModal: document.getElementById("quitModal"),
   cancelQuitBtn: document.getElementById("cancelQuitBtn"),
-  confirmQuitBtn: document.getElementById("confirmQuitBtn")
+  confirmQuitBtn: document.getElementById("confirmQuitBtn"),
+  resetModal: document.getElementById("resetModal"),
+  cancelResetBtn: document.getElementById("cancelResetBtn"),
+  confirmResetBtn: document.getElementById("confirmResetBtn")
 };
 
 let viewMode = "map";
 let isDragging = false;
 let lastX = 0;
+let isTransitioning = false;
 
 loadState();
 state.started = false;
@@ -567,13 +581,21 @@ function wireEvents() {
   el.startBtn.addEventListener("click", startMission);
   el.mapBtn.addEventListener("click", showMap);
   el.catalogBtn.addEventListener("click", openCatalog);
+  el.resetBtn.addEventListener("click", openResetModal);
   el.quitBtn.addEventListener("click", quitMission);
   el.closeCatalogBtn.addEventListener("click", closeCatalog);
   el.cancelQuitBtn.addEventListener("click", closeQuitModal);
   el.confirmQuitBtn.addEventListener("click", confirmQuitMission);
+  el.cancelResetBtn.addEventListener("click", closeResetModal);
+  el.confirmResetBtn.addEventListener("click", confirmResetProgress);
   el.quitModal.addEventListener("click", (event) => {
     if (event.target === el.quitModal) {
       closeQuitModal();
+    }
+  });
+  el.resetModal.addEventListener("click", (event) => {
+    if (event.target === el.resetModal) {
+      closeResetModal();
     }
   });
   el.visitBtn.addEventListener("click", zoomToCurrentPlanet);
@@ -605,6 +627,11 @@ function wireEvents() {
   window.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !el.quitModal.hidden) {
       closeQuitModal();
+      return;
+    }
+
+    if (event.key === "Escape" && !el.resetModal.hidden) {
+      closeResetModal();
     }
   });
 }
@@ -740,6 +767,34 @@ function confirmQuitMission() {
   el.startScreen.hidden = false;
 }
 
+function openResetModal() {
+  el.resetModal.hidden = false;
+  el.confirmResetBtn.focus();
+}
+
+function closeResetModal() {
+  el.resetModal.hidden = true;
+}
+
+function confirmResetProgress() {
+  closeResetModal();
+  closeQuitModal();
+  closeCatalog();
+
+  state.started = false;
+  state.currentIndex = 0;
+  state.selectedPartIndex = 0;
+  state.foundCats = [];
+  saveState();
+
+  renderCatalog();
+  renderMapSelection();
+  renderPlanet();
+  showMap();
+  el.app.hidden = true;
+  el.startScreen.hidden = false;
+}
+
 function generatePlanetPins() {
   const solarStage = el.solarStage;
   solarStage.querySelectorAll(".planet-pin").forEach((pin) => pin.remove());
@@ -823,26 +878,63 @@ function renderMapSelection() {
 }
 
 function showMap() {
+  if (isTransitioning) return;
   viewMode = "map";
   el.mapView.hidden = false;
   el.planetView.hidden = true;
   el.locationLabel.textContent = "Solar System Map";
   el.mapView.classList.remove("warping");
+  el.mapView.classList.remove("arriving");
   el.solarStage.classList.remove("spiral-zoom");
 }
 
 function zoomToCurrentPlanet() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  prepareArrivalTransition();
+
   el.mapView.classList.add("warping");
   el.solarStage.classList.add("spiral-zoom");
+
+  if (!prefersReducedMotion) {
+    setTimeout(() => {
+      el.mapView.classList.add("arriving");
+    }, WARP_DURATION_MS);
+  }
+
+  const transitionTotalMs = prefersReducedMotion ? WARP_DURATION_MS : WARP_DURATION_MS + ARRIVAL_DURATION_MS;
+
   setTimeout(() => {
     viewMode = "planet";
     el.mapView.hidden = true;
     el.planetView.hidden = false;
     el.locationLabel.textContent = getCurrentSystem().label;
     el.mapView.classList.remove("warping");
+    el.mapView.classList.remove("arriving");
     el.solarStage.classList.remove("spiral-zoom");
+    isTransitioning = false;
     renderPlanet();
-  }, 1050);
+  }, transitionTotalMs);
+}
+
+function prepareArrivalTransition() {
+  const current = getCurrentSystem();
+
+  el.arrivalLabel.textContent = current.label;
+  el.arrivalIntro.textContent = current.intro;
+
+  setArrivalBodyAppearance(el.arrivalBodyCenter, current);
+}
+
+function setArrivalBodyAppearance(node, system) {
+  if (!node || !system) return;
+  if (system.image) {
+    node.style.backgroundImage = `url("${system.image}")`;
+  } else {
+    node.style.backgroundImage = system.texture;
+  }
 }
 
 function renderPlanet() {

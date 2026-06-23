@@ -32,6 +32,7 @@
         <div class="top-actions">
           <button id="mapBtn" class="btn btn-secondary">Map</button>
           <button id="catalogBtn" class="btn btn-secondary">Cat Catalog</button>
+          <button id="resetBtn" class="btn btn-secondary">Reset</button>
           <button id="quitBtn" class="btn btn-secondary">Quit</button>
         </div>
       </header>
@@ -40,6 +41,18 @@
         <section id="mapView" class="view map-view">
           <p class="view-title">Choose your destination</p>
           <div id="warpTransition" class="warp-transition" aria-hidden="true"></div>
+          <div id="arrivalTransition" class="arrival-transition" aria-hidden="true">
+            <div class="arrival-bodies" aria-hidden="true">
+              <div id="arrivalBodyLeft" class="arrival-body arrival-body-left"></div>
+              <div id="arrivalBodyCenter" class="arrival-body arrival-body-center"></div>
+              <div id="arrivalBodyRight" class="arrival-body arrival-body-right"></div>
+            </div>
+            <div class="arrival-info" aria-live="polite">
+              <p class="arrival-kicker">Approaching</p>
+              <h3 id="arrivalLabel">Destination</h3>
+              <p id="arrivalIntro" class="arrival-intro"></p>
+            </div>
+          </div>
           <div id="solarStage" class="solar-stage">
             <div class="orbit orbit-mercury"></div>
             <div class="orbit orbit-venus"></div>
@@ -108,6 +121,19 @@
         <div class="quit-modal-actions">
           <button id="cancelQuitBtn" class="btn btn-secondary">Cancel</button>
           <button id="confirmQuitBtn" class="btn btn-primary">Yes, Quit</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="resetModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle" hidden>
+      <div class="quit-modal">
+        <h3 id="resetModalTitle">Reset Mission Progress?</h3>
+        <p>
+          Warning: this will reset all of your progress, including discovered cats and your current destination.
+        </p>
+        <div class="quit-modal-actions">
+          <button id="cancelResetBtn" class="btn btn-secondary">Cancel</button>
+          <button id="confirmResetBtn" class="btn btn-primary">Yes, Reset</button>
         </div>
       </div>
     </section>
